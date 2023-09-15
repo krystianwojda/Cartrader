@@ -5,22 +5,35 @@
       <a class="text-3xl" href="">Cartrader</a>
     </header>
     <!-- NAVBAR -->
-    <!-- HOME -->
-    <div class="relative h-screen w-100 bg-no-repeat bg-cover bg-center bg-[url('https://wallpaperaccess.com/full/787663.jpg')]">
-      <div class="z-10 absolute w-full h-full flex justify-center items-center">
-        <div class="text-center w-1/2">
-          <h1 class="text-8xl mb-10 text-white">Find your car</h1>
-          <!-- HOME SEARCH BAR -->
-          <div class="w-[1000px] text-2xl rounded-full bg-white flex justify-between overflow-hidden drop-shadow-2xl mx-auto">
-            <input type="text" class="py-3 px-5 w-full text-2xl rounded-full focus:outline-none" placeholder="Search by city">
-            <button class="bg-sky-600 px-10 text-white">Search</button>
+    <!-- CARS PAGE -->
+    <div class="mx-auto mt-4 max-w-7xl space-y-4 px-4 xs:px-8 sm:px-10 lg:px-16 pb-16 w-3/5">
+      <div class="mt-32 flex">
+        <!-- CAR SIDE BAR -->
+        <div class="shadow border w-64 mr-10 z-30 h-[190px]">
+          <div class="p-5 flex justify-between relative cursor-pointer border-b">
+            <h3>Location</h3>
+            <h3 class="text-blue-400 capitalize">Toronto</h3>
+            <!--<div class="absolute border shadow left-56 p-5 top-1 -m-1 bg-white">
+              <input type="text" class="border p-1 rounded">
+              <button class="bg-blue-400 w-full mt-2 rounded text-white p-1">Apply</button>
+            </div>-->
           </div>
-          <!-- HOME SEARCH BAR -->
+          <div class="p-5 flex justify-between relative cursor-pointer border-b">
+            <h3>Make</h3>
+            <h3 class="text-blue-400 capitalize">Toyota</h3>
+          </div>
+          <div class="p-5 flex justify-between relative cursor-pointer border-b">
+            <h3>Price</h3>
+            <h3 class="text-blue-400 capitalize">Any</h3>
+          </div>
         </div>
+        <!-- CAR SIDE BAR -->
+        <!-- CAR CARDS --->
+
+        <!-- CAR CARDS --->
       </div>
-      <div class="z-1 absolute w-full h-full bg-black opacity-50"></div>
     </div>
-    <!-- HOME -->
+    <!-- CARS PAGE -->
   </div>
 </template>
 
@@ -29,3 +42,5 @@
     font-family: revert;
   }
 </style>
+<script setup lang="ts">
+</script>
