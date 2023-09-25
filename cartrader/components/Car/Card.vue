@@ -5,7 +5,9 @@
       <div class="p-4 flex flex-col">
         <div class="flex justify-between">
           <h1 class="text-2xl text-blue-700">{{ car.name }}</h1>
-          <img class="w-7 right-5 top-2" :src="favored ? heartFilled : heartOutline" alt="" @click="favored = !favored"/>
+          <img class="w-7 right-5 top-2"
+               :src="favored ? heartFilled : heartOutline"
+               @click="emit('favor', car.id)"/>
         </div>
         <p class="text-gray-700">{{ car.description }}</p>
         <h1 class="mt-auto text-xl">{{ car.price}} zł</h1>
@@ -20,10 +22,9 @@
   import heartOutline from '@/assets/heartOutline.png';
 
   const props = defineProps({
-    car: Object
+    car: Object,
+    favored: Boolean
   });
 
-  const favored = useState(`favored-${props.car.id}`, () => {
-    return false;
-  })
+  const emit = defineEmits(['favor'])
 </script>
