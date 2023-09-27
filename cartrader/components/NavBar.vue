@@ -14,8 +14,6 @@ const user = useSupabaseUser();
 const supabase = useSupabaseClient();
 
 const logout = async () => {
-  // 1) make user.value = null
-  // 2) Remove cookie token from browser
   const { error } = supabase.auth.signOut();
 
   try {
@@ -32,6 +30,5 @@ const logout = async () => {
 
   user.value = null;
   navigateTo('/');
-  // 3) Navigate to homepage
 };
 </script>

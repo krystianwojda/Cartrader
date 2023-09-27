@@ -13,7 +13,19 @@
 </template>
 
 <script setup>
-import dataMake from '@/data/makes.json';
+import dataMake from '~/data/makes.json';
+
+definePageMeta({
+  middleware: [
+    function (to, from) {
+      const user = useSupabaseUser();
+      if (user.value) {
+        return;
+      }
+      return navigateTo('/login');
+    }
+  ]
+});
 
 const makes = dataMake;
 const info = useState('adInfo', () => {
