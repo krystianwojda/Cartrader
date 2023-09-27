@@ -1,13 +1,13 @@
 <template>
   <div class="w-full">
-    <CarCard v-for="car in data" :key="car.id" :car="car" @favor="handleFavorite" :favored="car.id in favorite"/>
+    <CarCard v-for="car in cars" :key="car.id" :car="car" @favor="handleFavorite" :favored="car.id in favorite"/>
   </div>
 </template>
 
 <script setup>
-  import cars from '@/data/cars.json';
-  
-  const data = cars;
+  const props = defineProps({
+    cars: Array
+  });
   const favorite = useLocalStorage("favorite", {});
 
   const handleFavorite = (id) => {
