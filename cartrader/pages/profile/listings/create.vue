@@ -15,10 +15,6 @@
 <script setup>
 import dataMake from '~/data/makes.json';
 
-definePageMeta({
-  middleware: ['auth']
-});
-
 const makes = dataMake;
 const info = useState('adInfo', () => {
   return {

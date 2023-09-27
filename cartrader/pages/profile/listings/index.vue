@@ -13,9 +13,5 @@
 <script setup>
 import listing from '@/data/listings.json';
 
-definePageMeta({
-  middleware: ['auth']
-});
-
 const listings = listing;
 </script>
