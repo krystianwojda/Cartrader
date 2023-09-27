@@ -3,7 +3,7 @@
     <NuxtLink class="text-3xl" to="/">Cartrader</NuxtLink>
     <div v-if="user" class="flex">
       <NuxtLink to="/profile/listings" class="mr-5">Profile</NuxtLink>
-      <p class="cursor-pointer">Logout</p>
+      <p class="cursor-pointer" @click="logout">Logout</p>
     </div>
     <NuxtLink v-else to="/login">Login</NuxtLink>
   </header>
@@ -11,4 +11,27 @@
 
 <script setup>
 const user = useSupabaseUser();
+const supabase = useSupabaseClient();
+
+const logout = async () => {
+  // 1) make user.value = null
+  // 2) Remove cookie token from browser
+  const { error } = supabase.auth.signOut();
+
+  try {
+    await $fetch(`/api/_supabase/session`, {
+      method: 'POST',
+      body: {
+        event: 'SIGNED_OUT',
+        session: null
+      }
+    });
+  } catch (error) {
+    return console.log(error);
+  }
+
+  user.value = null;
+  navigateTo('/');
+  // 3) Navigate to homepage
+};
 </script>
