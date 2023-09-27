@@ -27,5 +27,5 @@ export default defineEventHandler((event) => {
         });
     }
 
-    return cars;
+    return filteredCars;
 });
