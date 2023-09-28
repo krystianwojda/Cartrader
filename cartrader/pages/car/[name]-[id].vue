@@ -21,4 +21,5 @@ useHead({
 })
 
 const {data: car} = await useFetchCar(route.params.id);
+const user = useSupabaseUser();
 </script>
