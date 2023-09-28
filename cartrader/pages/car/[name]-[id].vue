@@ -14,25 +14,11 @@
 </template>
 
 <script setup>
-import cars from "@/data/cars.json";
-
 const route = useRoute();
-const data = cars;
 
 useHead({
   title: route.params.name
 })
 
-const car = computed(() => {
-  return data.find((c) => {
-    return c.id === parseInt(route.params.id)
-  })
-})
-
-if (!car.value) {
-  throw createError({
-    statusCode: 404,
-    message: `Car with ID ${route.params.id} does not exist`
-  })
-}
+const {data: car} = await useFetchCar(route.params.id);
 </script>
