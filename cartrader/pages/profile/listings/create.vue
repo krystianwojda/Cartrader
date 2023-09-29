@@ -63,7 +63,7 @@ const inputs = [
   {
     id: 4,
     title: 'Miles *',
-    name: 'Miles',
+    name: 'miles',
     placeholder: "22182"
   },
   {
@@ -96,13 +96,15 @@ const isButtonDisabled = computed(() => {
 const handleSubmit = async () => {
   const body = {
     ...info.value,
-    features: info.value.features.split(', '),
-    numberOfSeats: parseInt(info.value.seats),
-    miles: parseInt(info.value.miles),
-    price: parseInt(info.value.price),
-    year: parseInt(info.value.price),
     name: `${info.value.make} ${info.value.model}`,
-    listerId: user.value.id
+    year: parseInt(info.value.year),
+    price: parseInt(info.value.price),
+    miles: parseInt(info.value.miles),
+    city: info.value.city.toLowerCase(),
+    numberOfSeats: parseInt(info.value.seats),
+    features: info.value.features.split(', '),
+    listerId: user.value.id,
+    image: 'sadasd'
   };
 
   delete body.seats;

@@ -10,7 +10,7 @@ const schema = Joi.object({
     miles: Joi.number().required(),
     city: Joi.string().required(),
     numberOfSeats: Joi.number().min(1).max(100).required(),
-    description: Joi.number().min(100).required(),
+    description: Joi.string().min(30).required(),
     features: Joi.array().items(Joi.string()).required(),
     image: Joi.string().required(),
     listerId: Joi.string().required(),
@@ -31,34 +31,32 @@ export default defineEventHandler(async (event) => {
     }
 
     const {
+        image,
+        name,
+        numberOfSeats,
+        features,
+        description,
+        miles,
+        price,
+        listerId,
+        city,
         make,
         model,
-        year,
-        miles,
-        city,
-        numberOfSeats,
-        description,
-        features,
-        image,
-        listerId,
-        price,
-        name
     } = body;
 
     const car = await prisma.car.create({
         data: {
+            image,
+            name,
+            numberOfSeats,
+            features,
+            description,
+            miles,
+            price,
+            listerId,
+            city: city.toLowerCase(),
             make,
             model,
-            year,
-            miles,
-            city: city.toLowerCase(),
-            numberOfSeats,
-            description,
-            features,
-            image,
-            listerId,
-            price,
-            name
         }
     })
 
