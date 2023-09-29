@@ -1,4 +1,7 @@
 import Joi from "joi";
+import {PrismaClient} from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 const schema = Joi.object({
     make: Joi.string().required(),
@@ -7,6 +10,7 @@ const schema = Joi.object({
     miles: Joi.number().required(),
     city: Joi.string().required(),
     numberOfSeats: Joi.number().min(1).max(100).required(),
+    description: Joi.number().min(100).required(),
     features: Joi.array().items(Joi.string()).required(),
     image: Joi.string().required(),
     listerId: Joi.string().required(),
@@ -25,6 +29,38 @@ export default defineEventHandler(async (event) => {
             statusMessage: error.message
         });
     }
+
+    const {
+        make,
+        model,
+        year,
+        miles,
+        city,
+        numberOfSeats,
+        description,
+        features,
+        image,
+        listerId,
+        price,
+        name
+    } = body;
+
+    const car = await prisma.car.create({
+        data: {
+            make,
+            model,
+            year,
+            miles,
+            city: city.toLowerCase(),
+            numberOfSeats,
+            description,
+            features,
+            image,
+            listerId,
+            price,
+            name
+        }
+    })
 
     return {value, error};
 });
