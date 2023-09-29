@@ -9,7 +9,7 @@
       <CarAdTextarea title="Description *" name="description" placeholder="Some description..." @change-input="onChangeInput"/>
       <CarAdImage @change-input="onChangeInput"/>
       <div>
-        <button :disabled="isButtonDisabled" class="bg-blue-400 text-white rounded py-2 px-7 mt-3">Submit</button>
+        <button :disabled="isButtonDisabled" @click="handleSubmit" class="bg-blue-400 text-white rounded py-2 px-7 mt-3">Submit</button>
       </div>
     </div>
   </div>
@@ -19,6 +19,7 @@
 import dataMake from '~/data/makes.json';
 
 const makes = dataMake;
+const user = useSupabaseUser();
 const info = useState('adInfo', () => {
   return {
     make: '',
@@ -30,7 +31,7 @@ const info = useState('adInfo', () => {
     seats: '',
     features: '',
     description: '',
-    image: null
+    image: 'asdasd'
   }
 });
 
@@ -89,4 +90,29 @@ const isButtonDisabled = computed(() => {
   }
   return false;
 });
+
+const handleSubmit = async () => {
+  const body = {
+    ...info.value,
+    features: info.value.features.split(', '),
+    numberOfSeats: parseInt(info.value.seats),
+    miles: parseInt(info.value.miles),
+    price: parseInt(info.value.price),
+    year: parseInt(info.value.price),
+    name: `${info.value.make} ${info.value.model}`,
+    listerId: user.value.id
+  };
+
+  delete body.seats;
+
+  try {
+    const response = await $fetch('/api/car/listings', {
+      method: 'POST',
+      body
+    });
+    navigateTo('/profile/listings')
+  } catch (error) {
+
+  }
+};
 </script>
