@@ -10,6 +10,7 @@
       <CarAdImage @change-input="onChangeInput"/>
       <div>
         <button :disabled="isButtonDisabled" @click="handleSubmit" class="bg-blue-400 text-white rounded py-2 px-7 mt-3">Submit</button>
+        <p v-if="errorMessage" class="mt-3 text-red-500">{{ errorMessage }}</p>
       </div>
     </div>
   </div>
@@ -34,6 +35,7 @@ const info = useState('adInfo', () => {
     image: 'asdasd'
   }
 });
+const errorMessage = ref('');
 
 const onChangeInput = (data, name) => {
   info.value[name] = data;
@@ -112,7 +114,7 @@ const handleSubmit = async () => {
     });
     navigateTo('/profile/listings')
   } catch (error) {
-
+    errorMessage.value = error.statusMessage;
   }
 };
 </script>
