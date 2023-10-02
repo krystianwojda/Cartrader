@@ -11,7 +11,8 @@
 </template>
 
 <script setup>
-import listing from '@/data/listings.json';
-
-const listings = listing;
+const user = useSupabaseUser();
+const { data: listings } = await useFetch(
+    `/api/car/listings/user/${user.value.id}`
+);
 </script>
