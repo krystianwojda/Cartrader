@@ -21,6 +21,8 @@ import dataMake from '~/data/makes.json';
 
 const makes = dataMake;
 const user = useSupabaseUser();
+const supabase = useSupabaseClient();
+
 const info = useState('adInfo', () => {
   return {
     make: '',
@@ -32,7 +34,7 @@ const info = useState('adInfo', () => {
     seats: '',
     features: '',
     description: '',
-    image: 'asdasd'
+    image: null
   }
 });
 const errorMessage = ref('');
@@ -94,6 +96,13 @@ const isButtonDisabled = computed(() => {
 });
 
 const handleSubmit = async () => {
+  const fileName = Math.floor(Math.random() * 100000000000);
+  const {data, error} = await supabase.storage.from('images').upload('public/' + fileName, info.value.image);
+
+  if (error) {
+    return errorMessage.value = 'Cannot upload image';
+  }
+
   const body = {
     ...info.value,
     name: `${info.value.make} ${info.value.model}`,
@@ -104,7 +113,7 @@ const handleSubmit = async () => {
     numberOfSeats: parseInt(info.value.seats),
     features: info.value.features.split(', '),
     listerId: user.value.id,
-    image: 'sadasd'
+    image: data.path
   };
 
   delete body.seats;
@@ -117,6 +126,7 @@ const handleSubmit = async () => {
     navigateTo('/profile/listings')
   } catch (error) {
     errorMessage.value = error.statusMessage;
+    await supabase.storage.from('images').remove(data.path);
   }
 };
 </script>
