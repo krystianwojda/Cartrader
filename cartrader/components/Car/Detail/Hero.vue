@@ -1,6 +1,6 @@
 <template>
   <div class="mt-10">
-    <img :src="car.image" class="w-full" :alt="car.name">
+    <img :src="`${config.public.supabase.url}/storage/v1/object/public/images/public/${car.image}`" class="w-full" :alt="car.name">
     <h1 class="mt-10 text-4xl">{{ car.name }}</h1>
     <div class="text-slate-500 flex text-lg mt-3 border-b pb-5 justify-between">
       <div class="flex">
@@ -19,4 +19,5 @@
   const props = defineProps({
     car: Object
   });
+  const config = useRuntimeConfig();
 </script>
